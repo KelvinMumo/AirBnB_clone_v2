@@ -45,6 +45,19 @@ class FileStorage:
             with open(FileStorage.__file_path, 'r') as f:
                 temp = json.load(f)
                 for key, val in temp.items():
-                        self.all()[key] = classes[val['__class__']](**val)
+                    self.all()[key] = classes[val['__class__']](**val)
         except FileNotFoundError:
             pass
+
+    def close(self):
+        """display our HBNB data
+        """
+        self.reload()
+
+    def delete(self, obj=None):
+        """
+        delete obj from __objects if its inside - if obj is None,
+        the method should not do anything
+        """
+        if (obj):
+            self.__objects.pop("{}.{}".format(type(obj).__name__, obj.id))
